@@ -1,6 +1,9 @@
+#!/usr/bin/env ruby
 require 'json'
 
-map = JSON.parse(File.open("twemoji/v2/keywords.json").read)
+DIR=File.dirname(__FILE__)
+
+map = JSON.parse(File.open("#{DIR}/twemoji/v2/keywords.json").read)
 STDIN.read.each_line do |line|
   input = line.chomp
   code = map.fetch(input, input)
