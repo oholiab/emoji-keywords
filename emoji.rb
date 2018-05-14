@@ -2,9 +2,9 @@
 require 'json'
 
 begin
-  thisfile = File.readlink(__FILE__)
+  thisfile = File.readlink(File.realpath(__FILE__))
 rescue Errno::EINVAL
-  thisfile = __FILE__
+  thisfile = File.realpath(__FILE__)
 end
 
 DIR=File.dirname(thisfile)
@@ -14,5 +14,5 @@ STDIN.read.each_line do |line|
   input = line.chomp
   code = map.fetch(input, input)
   output = code == input ? code : code.to_i(16).chr(Encoding::UTF_8)
-  puts output
+  print output
 end
