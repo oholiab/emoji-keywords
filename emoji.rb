@@ -1,7 +1,13 @@
 #!/usr/bin/env ruby
 require 'json'
 
-DIR=File.dirname(__FILE__)
+begin
+  thisfile = File.readlink(__FILE__)
+rescue Errno::EINVAL
+  thisfile = __FILE__
+end
+
+DIR=File.dirname(thisfile)
 
 map = JSON.parse(File.open("#{DIR}/twemoji/v2/keywords.json").read)
 STDIN.read.each_line do |line|
